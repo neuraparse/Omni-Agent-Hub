@@ -96,20 +96,38 @@ class BaseAgent(ABC, LoggerMixin):
         capabilities: List[AgentCapability],
         redis_manager: Optional[RedisManager] = None,
         db_manager: Optional[DatabaseManager] = None,
+        vector_db_manager: Optional[Any] = None,
+        performance_monitor: Optional[Any] = None,
+        memory_system: Optional[Any] = None,
         timeout_seconds: int = 300
     ):
         self.name = name
         self.description = description
         self.capabilities = {cap.name: cap for cap in capabilities}
+
+        # Injected dependencies
         self.redis_manager = redis_manager
         self.db_manager = db_manager
+        self.vector_db_manager = vector_db_manager
+        self.performance_monitor = performance_monitor
+        self.memory_system = memory_system
         self.timeout_seconds = timeout_seconds
-        
+
         # Agent state
         self.is_busy = False
         self.current_task_id: Optional[str] = None
-        
-        self.logger.info(f"Agent {self.name} initialized", capabilities=list(self.capabilities.keys()))
+
+        self.logger.info(
+            f"Agent {self.name} initialized",
+            capabilities=list(self.capabilities.keys()),
+            dependencies={
+                "redis": self.redis_manager is not None,
+                "database": self.db_manager is not None,
+                "vector_db": self.vector_db_manager is not None,
+                "performance_monitor": self.performance_monitor is not None,
+                "memory_system": self.memory_system is not None
+            }
+        )
     
     @abstractmethod
     async def execute(self, task: str, context: AgentContext) -> AgentResult:
@@ -175,24 +193,53 @@ class BaseAgent(ABC, LoggerMixin):
             self.current_task_id = None
     
     async def store_memory(self, key: str, value: Any, context: AgentContext) -> bool:
-        """Store information in agent memory."""
-        if not self.redis_manager:
-            return False
-        
-        try:
-            memory_key = f"agent_memory:{context.session_id}:{self.name}:{key}"
-            await self.redis_manager.set(memory_key, value, expire=3600)  # 1 hour
-            
-            self.logger.debug(
-                f"Agent {self.name} stored memory",
-                key=key,
-                correlation_id=context.correlation_id
-            )
-            return True
-            
-        except Exception as e:
-            self.log_error(e, {"operation": "store_memory", "key": key})
-            return False
+        """Store information in agent memory (Redis + PostgreSQL)."""
+        success = False
+
+        # Store in Redis for fast access
+        if self.redis_manager:
+            try:
+                memory_key = f"agent_memory:{context.session_id}:{self.name}:{key}"
+                await self.redis_manager.set(memory_key, value, expire=3600)  # 1 hour
+                success = True
+
+                self.logger.debug(
+                    f"Agent {self.name} stored memory in Redis",
+                    key=key,
+                    correlation_id=context.correlation_id
+                )
+            except Exception as e:
+                self.log_error(e, {"operation": "store_memory_redis", "key": key})
+
+        # Store in PostgreSQL for persistence
+        if self.db_manager:
+            try:
+                await self.db_manager.execute_command(
+                    """
+                    INSERT INTO agent_memory (session_id, agent_name, memory_key, memory_value, created_at)
+                    VALUES (:session_id, :agent_name, :memory_key, :memory_value, :created_at)
+                    ON CONFLICT (session_id, agent_name, memory_key)
+                    DO UPDATE SET memory_value = :memory_value, updated_at = :created_at
+                    """,
+                    {
+                        "session_id": context.session_id,
+                        "agent_name": self.name,
+                        "memory_key": key,
+                        "memory_value": json.dumps(value) if not isinstance(value, str) else value,
+                        "created_at": datetime.utcnow()
+                    }
+                )
+                success = True
+
+                self.logger.debug(
+                    f"Agent {self.name} stored memory in PostgreSQL",
+                    key=key,
+                    correlation_id=context.correlation_id
+                )
+            except Exception as e:
+                self.log_error(e, {"operation": "store_memory_postgres", "key": key})
+
+        return success
     
     async def retrieve_memory(self, key: str, context: AgentContext) -> Optional[Any]:
         """Retrieve information from agent memory."""

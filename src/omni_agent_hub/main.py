@@ -20,15 +20,10 @@ from .core.config import get_settings
 from .core.exceptions import OmniAgentException
 from .core.logging import setup_logging, get_logger, RequestLogger
 from .api.routes import api_router
-from .services.database import DatabaseManager
-from .services.redis_manager import RedisManager
-from .services.vector_db import VectorDatabaseManager
+# Services are imported via dependency injection container
 
 
-# Global managers
-db_manager: DatabaseManager = None
-redis_manager: RedisManager = None
-vector_db_manager: VectorDatabaseManager = None
+# Services are now managed by dependency injection container
 
 logger = get_logger(__name__)
 
@@ -47,31 +42,18 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     
     logger.info("Starting Omni-Agent Hub", version=settings.app_version)
     
-    # Initialize global managers
-    global db_manager, redis_manager, vector_db_manager
+    # Services are managed by dependency injection container
     
     try:
-        # Initialize database
-        db_manager = DatabaseManager(settings.database_url)
-        await db_manager.initialize()
-        logger.info("Database initialized successfully")
-        
-        # Initialize Redis
-        redis_manager = RedisManager(settings.redis_url)
-        await redis_manager.initialize()
-        logger.info("Redis initialized successfully")
-        
-        # Initialize Vector Database
-        vector_db_manager = VectorDatabaseManager(
-            host=settings.milvus_host,
-            port=settings.milvus_port,
-            user=settings.milvus_user,
-            password=settings.milvus_password
-        )
-        await vector_db_manager.initialize()
-        logger.info("Vector database initialized successfully")
-        
-        logger.info("All services initialized successfully")
+        # Initialize all services via dependency injection container
+        from .core.container import container
+        await container.initialize_all()
+
+        # Initialize routes services
+        from .api.routes import init_services
+        await init_services()
+
+        logger.info("🎉 All services initialized successfully via dependency injection!")
         
     except Exception as e:
         logger.error("Failed to initialize services", error=str(e), exc_info=True)
@@ -83,22 +65,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info("Shutting down Omni-Agent Hub")
     
     try:
-        if vector_db_manager:
-            await vector_db_manager.close()
-            logger.info("Vector database closed")
-        
-        if redis_manager:
-            await redis_manager.close()
-            logger.info("Redis closed")
-        
-        if db_manager:
-            await db_manager.close()
-            logger.info("Database closed")
-            
+        from .core.container import container
+        await container.shutdown_all()
+        logger.info("🔒 Shutdown complete via dependency injection")
+
     except Exception as e:
         logger.error("Error during shutdown", error=str(e), exc_info=True)
-    
-    logger.info("Shutdown complete")
 
 
 def create_app() -> FastAPI:
