@@ -171,7 +171,8 @@ Be concise but thorough in your reasoning."""
         response = await self.llm_service.generate_response(
             messages=messages,
             temperature=0.7,
-            max_tokens=500
+            max_tokens=500,
+            task_type="reasoning"
         )
         
         return response.content
@@ -218,7 +219,8 @@ Choose the most appropriate action."""
         response = await self.llm_service.generate_response(
             messages=messages,
             temperature=0.3,
-            max_tokens=300
+            max_tokens=300,
+            task_type="reasoning"
         )
         
         return response.content

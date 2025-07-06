@@ -47,13 +47,28 @@ class Settings(BaseSettings):
     kafka_bootstrap_servers: str = Field(default="localhost:9092", env="KAFKA_BOOTSTRAP_SERVERS")
     kafka_topic_prefix: str = Field(default="omni_hub", env="KAFKA_TOPIC_PREFIX")
     
-    # AI Model Configuration
+    # AI Model Configuration (2025 Latest)
+    # OpenAI Models
     openai_api_key: Optional[str] = Field(default=None, env="OPENAI_API_KEY")
-    openai_model: str = Field(default="gpt-4-turbo-preview", env="OPENAI_MODEL")
+    openai_model: str = Field(default="gpt-4.1", env="OPENAI_MODEL")
+    openai_fallback_model: str = Field(default="gpt-4o", env="OPENAI_FALLBACK_MODEL")
     openai_embedding_model: str = Field(default="text-embedding-3-large", env="OPENAI_EMBEDDING_MODEL")
-    
+    openai_vision_model: str = Field(default="gpt-4o", env="OPENAI_VISION_MODEL")
+    openai_code_model: str = Field(default="gpt-4.1", env="OPENAI_CODE_MODEL")
+
+    # Anthropic Models
     anthropic_api_key: Optional[str] = Field(default=None, env="ANTHROPIC_API_KEY")
-    anthropic_model: str = Field(default="claude-3-5-sonnet-20241022", env="ANTHROPIC_MODEL")
+    anthropic_model: str = Field(default="claude-3-7-sonnet-latest", env="ANTHROPIC_MODEL")
+    anthropic_fallback_model: str = Field(default="claude-3-5-sonnet-20241022", env="ANTHROPIC_FALLBACK_MODEL")
+
+    # Google Gemini Models
+    google_api_key: str = Field(default="", env="GOOGLE_API_KEY")
+    gemini_model: str = Field(default="gemini-2.5-pro", env="GEMINI_MODEL")
+
+    # Model Selection Strategy
+    primary_llm_provider: str = Field(default="openai", env="PRIMARY_LLM_PROVIDER")
+    fallback_llm_provider: str = Field(default="anthropic", env="FALLBACK_LLM_PROVIDER")
+    auto_fallback_enabled: bool = Field(default=True, env="AUTO_FALLBACK_ENABLED")
     
     # MCP Configuration
     mcp_server_host: str = Field(default="localhost", env="MCP_SERVER_HOST")
