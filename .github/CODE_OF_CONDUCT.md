@@ -54,7 +54,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at:
 
-- **📧 Email**: `conduct@neuraparse.com` (if available)
+- **📧 Email**: `info@neuraparse.com` (if available)
 - **📱 GitHub**: Contact repository maintainers directly
 - **🔒 Private Message**: Reach out to maintainers privately
 
@@ -131,7 +131,7 @@ This Code of Conduct is designed to help us build a community that is:
 
 If you have questions about this Code of Conduct or need to report an issue:
 
-- **📧 Email**: `conduct@neuraparse.com` (if available)
+- **📧 Email**: `info@neuraparse.com` (if available)
 - **📱 GitHub**: Contact @maintainer-username
 - **💬 Discussions**: Use GitHub Discussions for general questions
 

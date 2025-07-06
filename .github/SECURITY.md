@@ -19,7 +19,7 @@ We take security vulnerabilities seriously. If you discover a security vulnerabi
 
 Instead, please report security issues privately by:
 
-1. **Email**: Send details to `security@neuraparse.com` (if available)
+1. **Email**: Send details to `info@neuraparse.com` (if available)
 2. **GitHub Security Advisory**: Use GitHub's private vulnerability reporting feature
 3. **Direct Contact**: Contact the maintainers directly through GitHub
 
@@ -173,7 +173,7 @@ We maintain a security hall of fame to recognize researchers who help improve ou
 
 For security-related questions or concerns:
 
-- **Security Email**: `security@neuraparse.com` (if available)
+- **Security Email**: `info@neuraparse.com` (if available)
 - **GitHub**: Create a private security advisory
 - **Maintainers**: Contact repository maintainers directly
 

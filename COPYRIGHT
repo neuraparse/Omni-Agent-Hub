@@ -1,0 +1,64 @@
+# Copyright Notice
+
+## Omni-Agent Hub
+
+**Copyright (c) 2025 Neuraparse**
+
+All rights reserved under the MIT License.
+
+### Primary Copyright Holder
+- **Neuraparse** - Original creator and maintainer of Omni-Agent Hub
+- **Contact**: https://github.com/neuraparse
+- **Repository**: https://github.com/neuraparse/Omni-Agent-Hub
+
+### Contributors
+- **Bayram Eker** ([@bayrameker](https://github.com/bayrameker)) - Project founder and lead developer
+
+### Third-Party Components
+
+This project includes or depends on the following third-party components:
+
+#### Core Dependencies
+- **FastAPI** - Copyright (c) 2018 Sebastián Ramírez (MIT License)
+- **PostgreSQL** - Copyright (c) 1996-2024, PostgreSQL Global Development Group (PostgreSQL License)
+- **Redis** - Copyright (c) 2009-2024, Redis Ltd. (BSD 3-Clause License)
+- **Apache Kafka** - Copyright (c) 2012-2024, The Apache Software Foundation (Apache License 2.0)
+- **MinIO** - Copyright (c) 2015-2024, MinIO, Inc. (GNU AGPL v3.0)
+- **Milvus** - Copyright (c) 2019-2024, Zilliz Inc. (Apache License 2.0)
+
+#### AI/ML Dependencies
+- **OpenAI Python SDK** - Copyright (c) 2020 OpenAI (MIT License)
+- **Transformers** - Copyright (c) 2018 Hugging Face Inc. (Apache License 2.0)
+
+#### Python Dependencies
+- **Pydantic** - Copyright (c) 2017 Samuel Colvin (MIT License)
+- **SQLAlchemy** - Copyright (c) 2006-2024 SQLAlchemy authors (MIT License)
+- **Docker** - Copyright (c) 2013-2024 Docker, Inc. (Apache License 2.0)
+
+### License Information
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for the full license text.
+
+### Trademark Notice
+
+"Omni-Agent Hub" and "Neuraparse" are trademarks of their respective owners.
+
+### Attribution Requirements
+
+When using this software, please include the following attribution:
+
+```
+Powered by Omni-Agent Hub
+Copyright (c) 2025 Neuraparse
+Licensed under MIT License
+```
+
+### Contact Information
+
+For copyright-related inquiries:
+- **GitHub**: https://github.com/neuraparse/Omni-Agent-Hub/issues
+- **Legal Issues**: Create an issue with the "legal" label
+
+---
+
+**Last Updated**: July 2025

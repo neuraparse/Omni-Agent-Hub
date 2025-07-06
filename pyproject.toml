@@ -4,13 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "omni-agent-hub"
-version = "1.0.0"
+version = "0.0.1"
 description = "Advanced Multi-Agent Orchestration System with ReAct, MCP, and Agentic RAG"
 authors = [
-    {name = "Omni-Agent Team", email = "team@omni-agent.com"}
+    {name = "Neuraparse", email = "contact@neuraparse.com"},
+    {name = "Bayram Eker", email = "eker600@gmail.com"}
+]
+maintainers = [
+    {name = "Bayram Eker", email = "eker600@gmail.com"}
 ]
 readme = "README.md"
 license = {text = "MIT"}
+homepage = "https://github.com/neuraparse/Omni-Agent-Hub"
+repository = "https://github.com/neuraparse/Omni-Agent-Hub"
+documentation = "https://github.com/neuraparse/Omni-Agent-Hub/wiki"
+changelog = "https://github.com/neuraparse/Omni-Agent-Hub/blob/main/CHANGELOG.md"
 requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 4 - Beta",
