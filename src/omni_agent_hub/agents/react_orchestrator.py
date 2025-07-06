@@ -237,6 +237,22 @@ class ReActOrchestrator(BaseAgent):
                     context=context.memory
                 )
 
+            # Send event to Kafka
+            if hasattr(self, 'kafka_manager') and self.kafka_manager:
+                await self.kafka_manager.send_agent_event(
+                    event_type="task_completed",
+                    agent_name=self.name,
+                    session_id=context.session_id,
+                    data={
+                        "task": task,
+                        "success": result.success,
+                        "confidence": confidence_score,
+                        "execution_time": execution_time,
+                        "tools_used": len(result.metadata.get("tools_used", [])),
+                        "react_steps": len(react_steps)
+                    }
+                )
+
             # Store enhanced memory
             await self._store_enhanced_memory(task, result, context, react_steps)
 
@@ -572,7 +588,9 @@ Choose the most strategic action:"""
                 "error_occurred": not result.success
             }
             await self.learning_engine.learn_from_interaction(
-                task, result.content, context.memory, success_indicators
+                task, result.content, context.memory, success_indicators,
+                session_id=context.session_id,
+                agent_name=self.name
             )
 
     async def _learn_from_failure(self, task: str, result: AgentResult, context: AgentContext, error: Exception) -> None:
@@ -584,7 +602,9 @@ Choose the most strategic action:"""
                 "error_type": type(error).__name__
             }
             await self.learning_engine.learn_from_interaction(
-                task, str(error), context.memory, success_indicators
+                task, str(error), context.memory, success_indicators,
+                session_id=context.session_id,
+                agent_name=self.name
             )
 
     async def _store_enhanced_memory(self, task: str, result: AgentResult, context: AgentContext, react_steps: List[ReActStep]) -> None:

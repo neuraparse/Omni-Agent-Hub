@@ -46,13 +46,19 @@ class Settings(BaseSettings):
     # Kafka Configuration
     kafka_bootstrap_servers: str = Field(default="localhost:9092", env="KAFKA_BOOTSTRAP_SERVERS")
     kafka_topic_prefix: str = Field(default="omni_hub", env="KAFKA_TOPIC_PREFIX")
+
+    # MinIO Configuration
+    minio_endpoint: str = Field(default="localhost:9000", env="MINIO_ENDPOINT")
+    minio_access_key: str = Field(default="minioadmin", env="MINIO_ACCESS_KEY")
+    minio_secret_key: str = Field(default="minioadmin", env="MINIO_SECRET_KEY")
+    minio_secure: bool = Field(default=False, env="MINIO_SECURE")
     
     # AI Model Configuration (2025 Latest)
     # OpenAI Models
     openai_api_key: Optional[str] = Field(default=None, env="OPENAI_API_KEY")
     openai_model: str = Field(default="gpt-4.1", env="OPENAI_MODEL")
     openai_fallback_model: str = Field(default="gpt-4o", env="OPENAI_FALLBACK_MODEL")
-    openai_embedding_model: str = Field(default="text-embedding-3-large", env="OPENAI_EMBEDDING_MODEL")
+    openai_embedding_model: str = Field(default="text-embedding-3-small", env="OPENAI_EMBEDDING_MODEL")
     openai_vision_model: str = Field(default="gpt-4o", env="OPENAI_VISION_MODEL")
     openai_code_model: str = Field(default="gpt-4.1", env="OPENAI_CODE_MODEL")
 

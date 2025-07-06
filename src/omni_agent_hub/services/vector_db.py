@@ -38,7 +38,7 @@ class VectorDatabaseManager(LoggerMixin):
         self._initialized = False
         
         # Collection schema configuration
-        self.dimension = 1536  # OpenAI text-embedding-3-large dimension
+        self.dimension = 1536  # OpenAI text-embedding-3-small dimension
         self.index_type = "IVF_FLAT"
         self.metric_type = "COSINE"
     
@@ -386,3 +386,19 @@ class VectorDatabaseManager(LoggerMixin):
         except Exception as e:
             self.log_error(e, {"operation": "get_collection_stats"})
             raise VectorDatabaseError(f"Failed to get collection stats: {str(e)}")
+
+    async def list_collections(self) -> List[str]:
+        """List all collections in Milvus."""
+        self._ensure_initialized()
+
+        try:
+            collections = await asyncio.get_event_loop().run_in_executor(
+                None,
+                utility.list_collections
+            )
+            self.logger.debug("Listed collections", count=len(collections))
+            return collections
+
+        except Exception as e:
+            self.log_error(e, {"operation": "list_collections"})
+            raise VectorDatabaseError(f"Failed to list collections: {str(e)}")

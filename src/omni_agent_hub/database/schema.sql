@@ -66,6 +66,20 @@ CREATE TABLE IF NOT EXISTS learning_patterns (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Learning interactions table
+CREATE TABLE IF NOT EXISTS learning_interactions (
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_input TEXT,
+    agent_response TEXT,
+    context JSONB,
+    success_score FLOAT,
+    metrics JSONB,
+    session_id VARCHAR(255),
+    agent_name VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- User preferences table
 CREATE TABLE IF NOT EXISTS user_preferences (
     id SERIAL PRIMARY KEY,
@@ -133,6 +147,8 @@ CREATE INDEX IF NOT EXISTS idx_agent_interactions_created_at ON agent_interactio
 CREATE INDEX IF NOT EXISTS idx_performance_metrics_type ON performance_metrics(metric_type);
 CREATE INDEX IF NOT EXISTS idx_performance_metrics_created_at ON performance_metrics(created_at);
 CREATE INDEX IF NOT EXISTS idx_learning_patterns_type ON learning_patterns(pattern_type);
+CREATE INDEX IF NOT EXISTS idx_learning_interactions_session ON learning_interactions(session_id);
+CREATE INDEX IF NOT EXISTS idx_learning_interactions_timestamp ON learning_interactions(timestamp);
 CREATE INDEX IF NOT EXISTS idx_knowledge_base_category ON knowledge_base(category);
 CREATE INDEX IF NOT EXISTS idx_system_events_type ON system_events(event_type);
 CREATE INDEX IF NOT EXISTS idx_system_events_created_at ON system_events(created_at);

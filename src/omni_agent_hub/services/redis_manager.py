@@ -271,6 +271,41 @@ class RedisManager(LoggerMixin):
         except Exception as e:
             self.log_error(e, {"operation": "redis_lrange", "list": name})
             raise DatabaseError(f"Redis LRANGE failed: {str(e)}")
+
+    async def ltrim(self, name: str, start: int, end: int) -> bool:
+        """Trim list to specified range."""
+        self._ensure_initialized()
+
+        try:
+            result = await self.redis_client.ltrim(name, start, end)
+            return result
+
+        except Exception as e:
+            self.log_error(e, {"operation": "redis_ltrim", "list": name})
+            raise DatabaseError(f"Redis LTRIM failed: {str(e)}")
+
+    async def llen(self, name: str) -> int:
+        """Get list length."""
+        self._ensure_initialized()
+
+        try:
+            return await self.redis_client.llen(name)
+
+        except Exception as e:
+            self.log_error(e, {"operation": "redis_llen", "list": name})
+            raise DatabaseError(f"Redis LLEN failed: {str(e)}")
+
+    async def ping(self) -> bool:
+        """Ping Redis server to check connection."""
+        self._ensure_initialized()
+
+        try:
+            result = await self.redis_client.ping()
+            return result
+
+        except Exception as e:
+            self.log_error(e, {"operation": "redis_ping"})
+            raise DatabaseError(f"Redis PING failed: {str(e)}")
     
     # Session Management
     async def create_session(

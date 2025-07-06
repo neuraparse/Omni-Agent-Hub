@@ -28,6 +28,9 @@ crewai==0.1.0
 aiokafka==0.8.11
 kafka-python==2.0.2
 
+# Object Storage
+minio==7.2.0
+
 # HTTP & API
 httpx==0.25.2
 aiohttp==3.9.1

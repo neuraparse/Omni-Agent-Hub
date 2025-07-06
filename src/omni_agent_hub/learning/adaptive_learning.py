@@ -75,7 +75,9 @@ class AdaptiveLearningEngine(LoggerMixin):
         agent_response: str,
         context: Dict[str, Any],
         success_indicators: Dict[str, Any],
-        user_feedback: Optional[Dict[str, Any]] = None
+        user_feedback: Optional[Dict[str, Any]] = None,
+        session_id: Optional[str] = None,
+        agent_name: Optional[str] = None
     ) -> None:
         """Learn from a single interaction."""
         
@@ -85,7 +87,9 @@ class AdaptiveLearningEngine(LoggerMixin):
             "agent_response": agent_response,
             "context": context,
             "success_indicators": success_indicators,
-            "user_feedback": user_feedback or {}
+            "user_feedback": user_feedback or {},
+            "session_id": session_id,
+            "agent_name": agent_name
         }
         
         # Add to recent interactions
@@ -597,9 +601,9 @@ class AdaptiveLearningEngine(LoggerMixin):
             try:
                 await self.db_manager.execute_command(
                     """
-                    INSERT INTO learning_interactions 
-                    (timestamp, user_input, agent_response, context, success_score, metrics)
-                    VALUES (:timestamp, :user_input, :agent_response, :context, :success_score, :metrics)
+                    INSERT INTO learning_interactions
+                    (timestamp, user_input, agent_response, context, success_score, metrics, session_id, agent_name)
+                    VALUES (:timestamp, :user_input, :agent_response, :context, :success_score, :metrics, :session_id, :agent_name)
                     """,
                     {
                         "timestamp": interaction_data["timestamp"],
@@ -607,7 +611,9 @@ class AdaptiveLearningEngine(LoggerMixin):
                         "agent_response": interaction_data["agent_response"],
                         "context": json.dumps(interaction_data["context"]),
                         "success_score": success_score,
-                        "metrics": json.dumps(asdict(self.metrics))
+                        "metrics": json.dumps(asdict(self.metrics)),
+                        "session_id": interaction_data.get("session_id"),
+                        "agent_name": interaction_data.get("agent_name")
                     }
                 )
             except Exception as e:

@@ -221,43 +221,63 @@ async def create_memory_system(redis, vector_db):
 
 
 @register_service("orchestrator", dependencies=[
-    "llm_service", "prompt_manager", "learning_engine", 
-    "database", "redis", "vector_db", "performance_monitor", "memory_system"
+    "llm_service", "prompt_manager", "learning_engine",
+    "database", "redis", "vector_db", "performance_monitor", "memory_system", "kafka", "minio"
 ])
 async def create_orchestrator(
     llm_service, prompt_manager, learning_engine,
-    database, redis, vector_db, performance_monitor, memory_system
+    database, redis, vector_db, performance_monitor, memory_system, kafka, minio
 ):
     """Create ReAct orchestrator with all dependencies."""
     from ..agents.react_orchestrator import ReActOrchestrator
-    
+
     orchestrator = ReActOrchestrator(
         llm_service=llm_service,
         prompt_manager=prompt_manager,
         learning_engine=learning_engine
     )
-    
+
     # Inject all dependencies
     orchestrator.db_manager = database
     orchestrator.redis_manager = redis
     orchestrator.vector_db_manager = vector_db
     orchestrator.performance_monitor = performance_monitor
     orchestrator.memory_system = memory_system
-    
+    orchestrator.kafka_manager = kafka
+    orchestrator.minio_manager = minio
+
     return orchestrator
 
 
-# Kafka service (currently unused but ready)
+# Kafka service for event streaming
 @register_service("kafka", dependencies=["settings"])
 async def create_kafka(settings):
-    """Create Kafka producer/consumer."""
-    # TODO: Implement Kafka integration
-    return None
+    """Create Kafka manager for event streaming."""
+    from ..services.kafka_manager import KafkaManager
+    kafka = KafkaManager(
+        bootstrap_servers=settings.kafka_bootstrap_servers,
+        client_id="omni-agent-hub",
+        group_id="omni-agents"
+    )
+    await kafka.initialize()
+
+    # Subscribe to default topics
+    await kafka.subscribe_to_topic("agent-events", kafka.handle_agent_event)
+    await kafka.subscribe_to_topic("system-events", kafka.handle_system_event)
+
+    return kafka
 
 
-# MinIO service (currently unused but ready)
+# MinIO service for object storage
 @register_service("minio", dependencies=["settings"])
 async def create_minio(settings):
-    """Create MinIO client."""
-    # TODO: Implement MinIO integration
-    return None
+    """Create MinIO manager for object storage."""
+    from ..services.minio_manager import MinIOManager
+    minio = MinIOManager(
+        endpoint=settings.minio_endpoint,
+        access_key=settings.minio_access_key,
+        secret_key=settings.minio_secret_key,
+        secure=settings.minio_secure
+    )
+    await minio.initialize()
+    return minio

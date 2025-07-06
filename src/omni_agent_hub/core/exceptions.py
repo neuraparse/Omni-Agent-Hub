@@ -263,7 +263,7 @@ class ReflectionError(OmniAgentException):
 
 class ExternalServiceError(OmniAgentException):
     """Raised when there's an external service error."""
-    
+
     def __init__(
         self,
         message: str,
@@ -278,5 +278,24 @@ class ExternalServiceError(OmniAgentException):
                 "service_name": service_name,
                 "status_code": status_code,
                 "response_body": response_body
+            }
+        )
+
+
+class ServiceError(OmniAgentException):
+    """Raised when there's a service initialization or operation error."""
+
+    def __init__(
+        self,
+        message: str,
+        service_name: Optional[str] = None,
+        operation: Optional[str] = None
+    ):
+        super().__init__(
+            message=message,
+            error_code="SERVICE_ERROR",
+            context={
+                "service_name": service_name,
+                "operation": operation
             }
         )
