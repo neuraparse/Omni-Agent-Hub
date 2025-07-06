@@ -312,3 +312,134 @@ ENABLE_CORS=false
 SECRET_KEY=your_super_secure_key
 BLOCKED_IMPORTS="os,sys,subprocess,socket,urllib"
 ```
+
+## 🏗️ Architecture
+
+### Core Components
+
+- **🧠 ReAct Orchestrator**: Main reasoning engine implementing Thought → Action → Observation → Reflection pattern
+- **🔧 CodeAct Runner**: Secure code execution environment with Docker sandboxing
+- **🛠️ ToolHub**: MCP-based tool integration for external services (Kagi, AWS, Slack, dbt)
+- **🔍 Self-Reflection Unit**: Quality assurance and continuous improvement
+- **👥 Multi-Agent Workflows**: Specialized agent coordination (Planner, Developer, QA, Analyst)
+- **📚 Agentic RAG**: Context-aware knowledge retrieval with Milvus vector database
+
+### Technology Stack
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **API Gateway** | FastAPI | HTTP API and WebSocket endpoints |
+| **Database** | PostgreSQL | Persistent data storage |
+| **Cache** | Redis | Session management and caching |
+| **Vector DB** | Milvus | Embeddings and semantic search |
+| **Message Queue** | Kafka | Event streaming and coordination |
+| **Object Storage** | MinIO | File and artifact storage |
+| **AI Models** | OpenAI GPT-4o, Anthropic Claude | Language understanding and generation |
+| **Orchestration** | Docker Compose | Service coordination |
+
+## 🔐 Security & Compliance
+
+### Security Features
+- **🔒 API Authentication**: JWT-based authentication with role-based access control
+- **🛡️ Input Validation**: Comprehensive request validation and sanitization
+- **🏰 Code Sandboxing**: Isolated Docker containers for code execution
+- **📝 Audit Logging**: Complete audit trail for all operations
+- **🔐 Secret Management**: Secure handling of API keys and credentials
+
+### Compliance Ready
+- **SOC 2 Type II**: Security controls and monitoring
+- **GDPR**: Data privacy and user consent management
+- **HIPAA**: Healthcare data protection (with proper configuration)
+- **ISO 27001**: Information security management
+
+## 📊 Monitoring & Observability
+
+### Built-in Monitoring
+```bash
+# System metrics
+curl http://localhost:8000/api/v1/metrics
+
+# Health checks
+omni-hub health --all
+
+# Performance monitoring
+curl http://localhost:8000/api/v1/health/detailed
+```
+
+### Integration Options
+- **Prometheus**: Metrics collection and alerting
+- **Grafana**: Dashboards and visualization
+- **Jaeger**: Distributed tracing
+- **ELK Stack**: Log aggregation and analysis
+
+## 🚀 Deployment Options
+
+### Local Development
+```bash
+docker-compose up -d
+omni-hub serve --reload
+```
+
+### Production Deployment
+```bash
+# Using Docker Compose
+docker-compose -f docker-compose.prod.yml up -d
+
+# Using Kubernetes
+kubectl apply -f k8s/
+```
+
+### Cloud Deployment
+- **AWS**: ECS, EKS, or Lambda deployment options
+- **Azure**: Container Instances or AKS
+- **GCP**: Cloud Run or GKE
+- **Kubernetes**: Helm charts provided
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Development Setup
+```bash
+git clone <repository-url>
+cd omni-agent-hub
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install -e ".[dev]"
+pre-commit install
+```
+
+### Running Tests
+```bash
+pytest tests/
+pytest tests/ --cov=omni_agent_hub
+```
+
+## 📚 Documentation
+
+- **API Documentation**: http://localhost:8000/docs (Swagger UI)
+- **Architecture Guide**: [docs/architecture.md](docs/architecture.md)
+- **Deployment Guide**: [docs/deployment.md](docs/deployment.md)
+- **Security Guide**: [docs/security.md](docs/security.md)
+
+## 🆘 Support
+
+- **Issues**: [GitHub Issues](https://github.com/your-org/omni-agent-hub/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-org/omni-agent-hub/discussions)
+- **Documentation**: [Wiki](https://github.com/your-org/omni-agent-hub/wiki)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- OpenAI for GPT models and API
+- Anthropic for Claude models
+- The FastAPI community
+- Docker and container ecosystem
+- Open source AI/ML community
+
+---
+
+**Built with ❤️ for the future of AI automation**
