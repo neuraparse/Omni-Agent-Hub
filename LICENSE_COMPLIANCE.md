@@ -186,4 +186,4 @@ pip-licenses --format=json --output-file=licenses.json
 
 **Disclaimer**: This guide is for informational purposes only and does not constitute legal advice. Consult with qualified legal counsel for specific compliance questions.
 
-**Last Updated**: January 6, 2025
+**Last Updated**: July 6, 2025
