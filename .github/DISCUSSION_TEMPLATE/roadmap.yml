@@ -1,0 +1,114 @@
+labels: ["roadmap", "planning"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🗺️ Roadmap Discussion
+        
+        Help us plan the future of Omni-Agent Hub! Share your thoughts on priorities, timelines, and strategic direction.
+        
+        ## 🎯 Current Focus Areas
+        - **Core Stability**: Ensuring robust, production-ready components
+        - **Performance**: Optimizing speed and resource usage
+        - **Developer Experience**: Improving ease of use and documentation
+        - **Enterprise Features**: Adding compliance and security features
+        - **Community Growth**: Building tools and resources for contributors
+
+  - type: dropdown
+    id: discussion-type
+    attributes:
+      label: "📋 Discussion Type"
+      description: "What aspect of the roadmap would you like to discuss?"
+      options:
+        - "Feature Prioritization"
+        - "Timeline Planning"
+        - "Technical Architecture"
+        - "Community Initiatives"
+        - "Documentation Strategy"
+        - "Performance Goals"
+        - "Security & Compliance"
+        - "Integration Roadmap"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: topic-description
+    attributes:
+      label: "🎯 Topic Description"
+      description: "Describe what you'd like to discuss about the roadmap."
+      placeholder: "I think we should prioritize... because..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: timeframe
+    attributes:
+      label: "⏰ Suggested Timeframe"
+      options:
+        - label: "Next Release (v0.1.x)"
+        - label: "Short Term (3-6 months)"
+        - label: "Medium Term (6-12 months)"
+        - label: "Long Term (1+ years)"
+        - label: "No specific timeline"
+
+  - type: checkboxes
+    id: impact-areas
+    attributes:
+      label: "🎯 Impact Areas"
+      description: "Which areas would be most affected by your roadmap suggestions?"
+      options:
+        - label: "User Experience"
+        - label: "Developer Experience"
+        - label: "Performance"
+        - label: "Security"
+        - label: "Scalability"
+        - label: "Maintainability"
+        - label: "Community Growth"
+        - label: "Enterprise Adoption"
+        - label: "Integration Ecosystem"
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: "💡 Rationale"
+      description: "Why is this important? What's the reasoning behind your suggestion?"
+      placeholder: "This is important because... It would help users by..."
+
+  - type: textarea
+    id: success-metrics
+    attributes:
+      label: "📊 Success Metrics"
+      description: "How would we measure success for this roadmap item?"
+      placeholder: "We'd know this is successful when... Metrics could include..."
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "🔗 Dependencies"
+      description: "What other features or changes would need to happen first?"
+      placeholder: "This depends on... We'd need to complete... first"
+
+  - type: textarea
+    id: resources-needed
+    attributes:
+      label: "🛠️ Resources Needed"
+      description: "What resources (development time, expertise, tools) would be required?"
+      placeholder: "This would require... We'd need expertise in..."
+
+  - type: checkboxes
+    id: community-involvement
+    attributes:
+      label: "🤝 Community Involvement"
+      options:
+        - label: "This could be a good first contribution for new developers"
+        - label: "This would benefit from community feedback during development"
+        - label: "This requires specialized expertise"
+        - label: "This could be developed in parallel by multiple contributors"
+
+  - type: textarea
+    id: additional-thoughts
+    attributes:
+      label: "💭 Additional Thoughts"
+      description: "Any other considerations, concerns, or ideas related to this roadmap topic?"
+      placeholder: "We should also consider... One concern might be..."

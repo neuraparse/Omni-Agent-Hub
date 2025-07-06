@@ -1,0 +1,120 @@
+labels: ["discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 💬 General Discussion
+        
+        Welcome to our community discussions! This is the place for open-ended conversations about Omni-Agent Hub.
+        
+        ## 🎯 Great topics for discussion:
+        - **Use Cases**: Share how you're using Omni-Agent Hub
+        - **Best Practices**: Tips and tricks you've discovered
+        - **Integration Stories**: How you've integrated with other tools
+        - **Performance Insights**: Optimization experiences
+        - **Community Building**: Ideas for growing our community
+        - **Learning Resources**: Tutorials, guides, or educational content
+
+  - type: dropdown
+    id: discussion-category
+    attributes:
+      label: "📂 Discussion Category"
+      description: "What type of discussion is this?"
+      options:
+        - "Use Cases & Examples"
+        - "Best Practices"
+        - "Integration Stories"
+        - "Performance & Optimization"
+        - "Community Building"
+        - "Learning & Education"
+        - "Troubleshooting Help"
+        - "Architecture Discussion"
+        - "Industry Trends"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: discussion-topic
+    attributes:
+      label: "💬 Discussion Topic"
+      description: "What would you like to discuss?"
+      placeholder: "I'd like to discuss... I'm curious about... Has anyone tried..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context-background
+    attributes:
+      label: "📋 Context & Background"
+      description: "Provide any relevant context or background information."
+      placeholder: "I'm working on... My setup includes... I've been thinking about..."
+
+  - type: textarea
+    id: specific-questions
+    attributes:
+      label: "❓ Specific Questions"
+      description: "Do you have specific questions you'd like the community to address?"
+      placeholder: "I'm wondering... Has anyone experienced... What's the best way to..."
+
+  - type: checkboxes
+    id: relevant-components
+    attributes:
+      label: "🔧 Relevant Components"
+      description: "Which parts of Omni-Agent Hub are relevant to your discussion?"
+      options:
+        - label: "ReAct Orchestrator"
+        - label: "CodeAct Runner"
+        - label: "ToolHub (MCP)"
+        - label: "Self-Reflection Unit"
+        - label: "Multi-Agent Workflows"
+        - label: "Agentic RAG"
+        - label: "Database Layer"
+        - label: "API Gateway"
+        - label: "Configuration & Setup"
+        - label: "Performance & Monitoring"
+        - label: "Security & Compliance"
+        - label: "Documentation"
+        - label: "Not component-specific"
+
+  - type: textarea
+    id: your-experience
+    attributes:
+      label: "🎯 Your Experience"
+      description: "Share your experience level and what you've tried so far."
+      placeholder: "I'm new to... I've been using... I've tried..."
+
+  - type: textarea
+    id: what-youve-learned
+    attributes:
+      label: "📚 What You've Learned"
+      description: "Share any insights, lessons learned, or interesting discoveries."
+      placeholder: "I discovered that... One thing I learned... An interesting finding..."
+
+  - type: textarea
+    id: resources-links
+    attributes:
+      label: "🔗 Relevant Resources"
+      description: "Share any relevant links, documentation, or resources."
+      placeholder: "Here's a helpful link... I found this resource... Related documentation..."
+
+  - type: checkboxes
+    id: discussion-goals
+    attributes:
+      label: "🎯 Discussion Goals"
+      description: "What are you hoping to get from this discussion?"
+      options:
+        - label: "Get advice or recommendations"
+        - label: "Share knowledge with the community"
+        - label: "Find collaborators or partners"
+        - label: "Validate an approach or idea"
+        - label: "Learn from others' experiences"
+        - label: "Start a broader conversation"
+        - label: "Get feedback on something I've built"
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: "ℹ️ Additional Information"
+      description: "Anything else you'd like to add to the discussion?"
+      placeholder: "Also worth mentioning... One more thing... For context..."

@@ -1,0 +1,148 @@
+labels: ["support", "help-wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🆘 Community Support
+        
+        Need help with Omni-Agent Hub? Our community is here to help! Please provide as much detail as possible so we can assist you effectively.
+        
+        ## 🔍 Before asking for help:
+        - Check the [README.md](../README.md) and documentation
+        - Search existing [issues](../issues) and [discussions](../discussions)
+        - Try the system health check: `curl http://localhost:8000/api/v1/system/status`
+        - Check the [API documentation](http://localhost:8000/docs) if it's API-related
+
+  - type: dropdown
+    id: support-type
+    attributes:
+      label: "🎯 Type of Support Needed"
+      description: "What kind of help do you need?"
+      options:
+        - "Installation & Setup"
+        - "Configuration Issues"
+        - "API Usage Questions"
+        - "Performance Problems"
+        - "Integration Help"
+        - "Best Practices Guidance"
+        - "Troubleshooting Errors"
+        - "Feature Usage Questions"
+        - "Architecture Guidance"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: "📝 Problem Description"
+      description: "Describe what you're trying to do and what's not working."
+      placeholder: "I'm trying to... but when I... the result is..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-taken
+    attributes:
+      label: "🔄 Steps You've Taken"
+      description: "What have you already tried to solve this problem?"
+      placeholder: "I tried... I also attempted... I checked..."
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "✅ Expected Behavior"
+      description: "What did you expect to happen?"
+      placeholder: "I expected... It should..."
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: "❌ Actual Behavior"
+      description: "What actually happened?"
+      placeholder: "Instead, what happened was... The error was..."
+
+  - type: textarea
+    id: environment-info
+    attributes:
+      label: "🖥️ Environment Information"
+      description: "Please provide details about your setup."
+      placeholder: |
+        - OS: (e.g., macOS 14.0, Ubuntu 22.04, Windows 11)
+        - Python Version: (e.g., 3.11.5)
+        - Omni-Agent Hub Version: (e.g., v0.0.1)
+        - Installation Method: (e.g., pip install, docker-compose)
+        - Docker Version: (if using Docker)
+    validations:
+      required: true
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: "⚙️ Configuration"
+      description: "Share relevant configuration (remove sensitive information like API keys)."
+      placeholder: |
+        Environment variables:
+        DEBUG=true
+        LOG_LEVEL=INFO
+        
+        Docker services status:
+        - PostgreSQL: ✅/❌
+        - Redis: ✅/❌
+        - Milvus: ✅/❌
+        - Kafka: ✅/❌
+        - MinIO: ✅/❌
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: "📋 Error Messages & Logs"
+      description: "Include any error messages, stack traces, or relevant log output."
+      placeholder: |
+        Error message:
+        ```
+        Paste error messages here
+        ```
+        
+        System health check output:
+        ```bash
+        # Output of: curl http://localhost:8000/api/v1/system/status
+        ```
+
+  - type: textarea
+    id: code-samples
+    attributes:
+      label: "💻 Code Samples"
+      description: "Share relevant code snippets that aren't working."
+      placeholder: |
+        ```python
+        # Your code here
+        ```
+
+  - type: checkboxes
+    id: urgency
+    attributes:
+      label: "⚡ Urgency Level"
+      options:
+        - label: "Blocking my work - need help ASAP"
+        - label: "Important but I can work around it"
+        - label: "Nice to solve but not urgent"
+        - label: "Just curious / learning"
+
+  - type: checkboxes
+    id: documentation-checked
+    attributes:
+      label: "📚 Documentation Checked"
+      options:
+        - label: "I've read the README.md"
+        - label: "I've checked the API documentation"
+        - label: "I've searched existing issues"
+        - label: "I've searched existing discussions"
+        - label: "I've tried the troubleshooting guide"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📎 Additional Context"
+      description: "Any other information that might be helpful."
+      placeholder: "This started happening when... It works fine on... I noticed that..."

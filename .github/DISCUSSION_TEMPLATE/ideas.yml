@@ -1,0 +1,102 @@
+labels: ["idea", "discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 💡 Share Your Ideas for Omni-Agent Hub
+        
+        We love hearing new ideas from our community! Whether it's a new feature, improvement, or creative use case, your input helps shape the future of Omni-Agent Hub.
+        
+        ## 🎯 What makes a great idea?
+        - **Clear problem statement**: What challenge are you trying to solve?
+        - **Practical solution**: How would your idea work in practice?
+        - **Community benefit**: How would this help other users?
+        - **Implementation thoughts**: Any ideas on how this could be built?
+
+  - type: textarea
+    id: idea-description
+    attributes:
+      label: "💡 Your Idea"
+      description: "Describe your idea in detail. What would you like to see in Omni-Agent Hub?"
+      placeholder: "I think it would be great if Omni-Agent Hub could..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: "🎯 Problem Statement"
+      description: "What problem does this idea solve? What's the current pain point?"
+      placeholder: "Currently, users struggle with... This idea would solve..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: "🚀 Proposed Solution"
+      description: "How would your idea work? Describe the solution in detail."
+      placeholder: "This could work by... The user would..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected-components
+    attributes:
+      label: "🔧 Which components would this affect?"
+      options:
+        - label: "ReAct Orchestrator"
+        - label: "CodeAct Runner"
+        - label: "ToolHub (MCP)"
+        - label: "Self-Reflection Unit"
+        - label: "Multi-Agent Workflows"
+        - label: "Agentic RAG"
+        - label: "API Gateway"
+        - label: "Database Layer"
+        - label: "User Interface"
+        - label: "Documentation"
+        - label: "Other (please specify in description)"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "📊 Priority Level"
+      description: "How important is this idea to you?"
+      options:
+        - "Nice to have"
+        - "Would be helpful"
+        - "Important for my use case"
+        - "Critical for adoption"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: "🎨 Use Cases"
+      description: "Describe specific scenarios where this idea would be useful."
+      placeholder: "This would be useful when... For example..."
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "🔄 Alternative Solutions"
+      description: "Are there any workarounds or alternative approaches you've considered?"
+      placeholder: "I've tried... but it doesn't work because..."
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: "🤝 Contribution"
+      options:
+        - label: "I'd be willing to help implement this idea"
+        - label: "I'd be willing to test this feature"
+        - label: "I'd be willing to help with documentation"
+        - label: "I'd be willing to provide feedback during development"
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "📚 Additional Context"
+      description: "Any other information, links, or examples that would help us understand your idea better."
+      placeholder: "Here are some links to similar implementations... This is inspired by..."

@@ -1,0 +1,34 @@
+# These are supported funding model platforms
+
+# GitHub Sponsors
+github: [neuraparse]
+
+# Open Collective
+# open_collective: omni-agent-hub
+
+# Ko-fi
+# ko_fi: neuraparse
+
+# Tidelift
+# tidelift: npm/omni-agent-hub
+
+# Community Bridge
+# community_bridge: omni-agent-hub
+
+# Liberapay
+# liberapay: neuraparse
+
+# IssueHunt
+# issuehunt: neuraparse
+
+# Otechie
+# otechie: neuraparse
+
+# LFX Crowdfunding
+# lfx_crowdfunding: omni-agent-hub
+
+# Custom funding URLs
+custom: [
+  "https://www.buymeacoffee.com/neuraparse",
+  "https://paypal.me/neuraparse"
+]

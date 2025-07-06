@@ -1,0 +1,57 @@
+# Global Owners
+# These owners will be the default owners for everything in the repo.
+# Unless a later match takes precedence, these users will be requested for
+# review when someone opens a pull request.
+* @bayrameker
+
+# Core System Components
+/src/omni_agent_hub/core/ @bayrameker
+/src/omni_agent_hub/agents/ @bayrameker
+/src/omni_agent_hub/services/ @bayrameker
+
+# Database and Schema
+/src/omni_agent_hub/database/ @bayrameker
+*.sql @bayrameker
+
+# API and Routes
+/src/omni_agent_hub/api/ @bayrameker
+
+# Configuration Files
+*.yml @bayrameker
+*.yaml @bayrameker
+*.toml @bayrameker
+*.json @bayrameker
+.env* @bayrameker
+
+# Docker and Infrastructure
+docker-compose*.yml @bayrameker
+Dockerfile* @bayrameker
+/k8s/ @bayrameker
+
+# Documentation
+README.md @bayrameker
+/docs/ @bayrameker
+*.md @bayrameker
+
+# GitHub Configuration
+/.github/ @bayrameker
+
+# Security and Compliance
+/src/omni_agent_hub/security/ @bayrameker
+SECURITY.md @bayrameker
+
+# Tests
+/tests/ @bayrameker
+*test*.py @bayrameker
+
+# CLI and Tools
+/src/omni_agent_hub/cli/ @bayrameker
+
+# Learning and AI Components
+/src/omni_agent_hub/learning/ @bayrameker
+/src/omni_agent_hub/tools/ @bayrameker
+
+# Package Configuration
+pyproject.toml @bayrameker
+setup.py @bayrameker
+requirements*.txt @bayrameker
