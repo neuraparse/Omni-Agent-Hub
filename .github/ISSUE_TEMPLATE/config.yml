@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/neuraparse/Omni-Agent-Hub/wiki
+    about: Check our comprehensive documentation and guides
+  - name: 💬 GitHub Discussions
+    url: https://github.com/neuraparse/Omni-Agent-Hub/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 🔒 Security Issues
+    url: https://github.com/neuraparse/Omni-Agent-Hub/security/advisories/new
+    about: Report security vulnerabilities privately
+  - name: 📧 Contact Maintainers
+    url: mailto:support@neuraparse.com
+    about: Contact the maintainers directly for urgent matters
