@@ -25,11 +25,13 @@ class TaskType(str, Enum):
 class AgentType(str, Enum):
     """Available agent types."""
     ORCHESTRATOR = "orchestrator"
+    REACT_ORCHESTRATOR = "ReActOrchestrator"
     CODE_AGENT = "code_agent"
     SEARCH_AGENT = "search_agent"
     ANALYSIS_AGENT = "analysis_agent"
     QA_AGENT = "qa_agent"
     ARCHITECT_AGENT = "architect_agent"
+    ERROR_HANDLER = "error_handler"
 
 
 class SessionStatus(str, Enum):

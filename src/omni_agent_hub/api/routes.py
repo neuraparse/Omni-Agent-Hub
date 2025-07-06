@@ -11,6 +11,9 @@ from typing import Dict, Any, List, Optional
 
 from ..core.config import get_settings
 from ..core.logging import get_logger
+from ..services.llm_service import LLMService
+from ..agents.react_orchestrator import ReActOrchestrator
+from ..agents.base_agent import AgentContext
 from .models import (
     AgentRequest,
     AgentResponse,
@@ -25,6 +28,10 @@ logger = get_logger(__name__)
 
 # Create main API router
 api_router = APIRouter()
+
+# Initialize services (will be properly injected in production)
+llm_service = LLMService()
+orchestrator = ReActOrchestrator(llm_service=llm_service)
 
 # Health check endpoints
 @api_router.get("/health", response_model=HealthResponse)
@@ -94,25 +101,43 @@ async def delete_session(session_id: str):
 # Agent interaction endpoints
 @api_router.post("/agents/chat", response_model=AgentResponse)
 async def chat_with_agent(request: AgentRequest):
-    """Main agent interaction endpoint."""
+    """Main agent interaction endpoint using ReAct orchestrator."""
     logger.info(
         "Agent chat request",
         session_id=request.session_id,
         message_length=len(request.message)
     )
-    
-    # TODO: Implement agent orchestration logic
-    return AgentResponse(
-        response="Hello! I'm the Omni-Agent Hub. How can I help you today?",
-        session_id=request.session_id,
-        agent_type="orchestrator",
-        confidence=0.95,
-        metadata={
-            "processing_time_ms": 150,
-            "agents_involved": ["orchestrator"],
-            "tools_used": []
-        }
-    )
+
+    try:
+        # Create agent context
+        context = AgentContext(
+            session_id=request.session_id,
+            user_id="api_user",  # TODO: Get from authentication
+            memory=request.context or {}
+        )
+
+        # Execute using ReAct orchestrator
+        result = await orchestrator.execute_with_timeout(request.message, context)
+
+        return AgentResponse(
+            response=result.content,
+            session_id=request.session_id,
+            agent_type=result.agent_name,
+            confidence=result.confidence,
+            metadata=result.metadata,
+            tools_used=result.metadata.get("tools_used", []),
+            reflection_feedback=result.context.reflections[-1]["content"] if result.context.reflections else None
+        )
+
+    except Exception as e:
+        logger.error("Agent chat failed", error=str(e), session_id=request.session_id)
+        return AgentResponse(
+            response=f"I apologize, but I encountered an error: {str(e)}",
+            session_id=request.session_id,
+            agent_type="error_handler",
+            confidence=0.0,
+            metadata={"error": True, "error_message": str(e)}
+        )
 
 @api_router.post("/agents/task", response_model=TaskResponse)
 async def execute_task(request: TaskRequest):
